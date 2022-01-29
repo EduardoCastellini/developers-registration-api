@@ -1,8 +1,8 @@
 import { v4 } from 'uuid'
 import { MongoHelper } from './mongo-helper'
-import { AddLevelRepository, LoadLevelRepository, UpdateLevelRepository } from '../../../data/protocols'
+import { AddLevelRepository, LoadLevelRepository, UpdateLevelRepository, DeleteLevelRepository } from '../../../data/protocols'
 
-export class LevelMongoRepository implements AddLevelRepository, LoadLevelRepository, UpdateLevelRepository {
+export class LevelMongoRepository implements AddLevelRepository, LoadLevelRepository, UpdateLevelRepository, DeleteLevelRepository {
   async add (data: AddLevelRepository.Params): Promise<void> {
     const levelCollection = MongoHelper.getCollection('levels')
     await levelCollection.insertOne({ ...data, id: v4() })
@@ -29,4 +29,11 @@ export class LevelMongoRepository implements AddLevelRepository, LoadLevelReposi
     )
     return developer
   }
+
+  async delete (levelId: string): Promise<void> {
+    if (levelId) {
+      const levelCollection = MongoHelper.getCollection('levels')
+      await levelCollection.deleteOne({ id: levelId })
+    }
+  };
 }

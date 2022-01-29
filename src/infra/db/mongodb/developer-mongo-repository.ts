@@ -1,10 +1,10 @@
 import { v4 } from 'uuid'
 import { MongoHelper } from './mongo-helper'
-import { AddDeveloperRepository, LoadDeveloperRepository, UpdateDeveloperRepository } from '../../../data/protocols'
+import { AddDeveloperRepository, LoadDeveloperRepository, UpdateDeveloperRepository, LoadDeveloperByLevelIdRepository } from '../../../data/protocols'
 import { DeveloperModel } from '../../../domain/models'
 import { AddDeveloper } from '../../../domain/usecases'
 
-export class DeveloperMongoRepository implements AddDeveloperRepository, LoadDeveloperRepository, UpdateDeveloperRepository {
+export class DeveloperMongoRepository implements AddDeveloperRepository, LoadDeveloperRepository, UpdateDeveloperRepository, LoadDeveloperByLevelIdRepository {
   async add (data: AddDeveloper.Params): Promise<void> {
     const developerCollection = MongoHelper.getCollection('developers')
     await developerCollection.insertOne({ ...data, id: v4() })
@@ -22,6 +22,16 @@ export class DeveloperMongoRepository implements AddDeveloperRepository, LoadDev
         { },
         { projection: { _id: 0, id: 1, nome: 1, datanascimento: 1, hobby: 1, idade: 1, sexo: 1, nivelid: 1 } }).toArray()
     if (developers) return developers
+  }
+
+  async loadByLevelId (levelId?: string | undefined): Promise<any> {
+    const developerCollection = MongoHelper.getCollection('developers')
+    const developer = await developerCollection.find(
+      { nivelid: levelId },
+      { projection: { _id: 0, id: 1, nome: 1, datanascimento: 1, hobby: 1, idade: 1, sexo: 1, nivelid: 1 } }
+    ).toArray()
+
+    return developer
   }
 
   async update (developerId: string, data: DeveloperModel): Promise<UpdateDeveloperRepository.Result> {
