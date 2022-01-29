@@ -5,6 +5,6 @@ import { makeAddLevelController, makeLoadLevelController, makeUpdateLevelControl
 export default (router: Router): void => {
   router.post('/levels', adaptRoute(makeAddLevelController()))
   router.get('/levels', adaptRoute(makeLoadLevelController()))
-  router.get('/levels/:level', adaptRoute(makeLoadLevelController()))
+  router.get('/levels/:levelId', adaptRoute(makeLoadLevelController()))
   router.put('/levels/:levelId', adaptRoute(makeUpdateLevelController()))
 }

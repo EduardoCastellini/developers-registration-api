@@ -10,7 +10,7 @@ export class LoadLevelController implements Controller {
 
   async handle (request: LoadLevelController.Request): Promise<HttpResponse> {
     try {
-      const levels = await this.loadLevel.load(request?.params?.level)
+      const levels = await this.loadLevel.load(request?.params?.levelId)
       return ok(levels)
     } catch (error) {
       return serverError(error)
@@ -20,6 +20,6 @@ export class LoadLevelController implements Controller {
 
 export namespace LoadLevelController {
   export interface Request {
-    params: {level?: string}
+    params: {levelId?: string}
   }
 }

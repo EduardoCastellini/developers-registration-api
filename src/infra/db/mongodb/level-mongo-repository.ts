@@ -8,12 +8,12 @@ export class LevelMongoRepository implements AddLevelRepository, LoadLevelReposi
     await levelCollection.insertOne({ ...data, id: v4() })
   }
 
-  async load (level: string): Promise<LoadLevelRepository.Result> {
+  async load (levelId: string): Promise<LoadLevelRepository.Result> {
     const levelCollection = MongoHelper.getCollection('levels')
-    const levels = level
-      ? await levelCollection.find<LoadLevelRepository.Result>({ nivel: level }, { projection: { _id: 0, id: 1, nivel: 1 } }).toArray()
+    const levels = levelId
+      ? await levelCollection.find<LoadLevelRepository.Result>({ id: levelId }, { projection: { _id: 0, id: 1, nivel: 1 } }).toArray()
       : await levelCollection.find<LoadLevelRepository.Result>({}, { projection: { _id: 0, id: 1, nivel: 1 } }).toArray()
-    return levels && null
+    return levels
   }
 
   async update (levelId: string, data: UpdateLevelRepository.Params): Promise<UpdateLevelRepository.Result> {
