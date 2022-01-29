@@ -1,6 +1,6 @@
 
 import { Controller, HttpResponse } from '../../protocols'
-import { serverError, noContent } from '../../helpers'
+import { serverError, noContent, customError } from '../../helpers'
 import { DeleteLevel } from '../../../domain/usecases'
 
 export class DeleteLevelController implements Controller {
@@ -16,6 +16,9 @@ export class DeleteLevelController implements Controller {
 
       return noContent()
     } catch (error) {
+      if (error.customError) {
+        return customError(error.statusCode, error)
+      }
       return serverError(error)
     }
   }

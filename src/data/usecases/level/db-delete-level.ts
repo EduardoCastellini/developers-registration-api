@@ -1,5 +1,6 @@
 import { DeleteLevel } from '../../../domain/usecases'
 import { DeleteLevelRepository, LoadDeveloperByLevelIdRepository } from '../../protocols'
+import { AlreadyUsedError } from '../../errors'
 
 export class DbDeleteLevel implements DeleteLevel {
   constructor (
@@ -7,10 +8,11 @@ export class DbDeleteLevel implements DeleteLevel {
     private readonly LoadDeveloperByLevelIdRepository: LoadDeveloperByLevelIdRepository
   ) {}
 
-  async delete (levelId: string): Promise<Error | undefined> {
+  async delete (levelId: string): Promise<void> {
     const developer = await this.LoadDeveloperByLevelIdRepository.loadByLevelId(levelId)
-    console.log('delete delete developer: ', developer)
-    if (!developer) return new Error()
+
+    if (developer) throw new AlreadyUsedError('Nível')
+
     await this.deleteLevelRepository.delete(levelId)
   }
 }

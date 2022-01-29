@@ -26,10 +26,10 @@ export class DeveloperMongoRepository implements AddDeveloperRepository, LoadDev
 
   async loadByLevelId (levelId?: string | undefined): Promise<any> {
     const developerCollection = MongoHelper.getCollection('developers')
-    const developer = await developerCollection.find(
+    const developer = await developerCollection.findOne(
       { nivelid: levelId },
       { projection: { _id: 0, id: 1, nome: 1, datanascimento: 1, hobby: 1, idade: 1, sexo: 1, nivelid: 1 } }
-    ).toArray()
+    )
 
     return developer
   }

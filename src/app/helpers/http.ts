@@ -30,3 +30,11 @@ export const noContent = (): HttpResponse => ({
   statusCode: 204,
   body: null
 })
+
+export const customError = (
+  statusCode: number,
+  error: Error
+): HttpResponse => ({
+  statusCode,
+  body: error
+})
