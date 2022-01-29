@@ -1,20 +1,25 @@
 import { v4 } from 'uuid'
 import { MongoHelper } from './mongo-helper'
-import { AddDeveloperRepository, LoadDeveloperRepository, UpdateDeveloperRepository, LoadDeveloperByLevelIdRepository } from '../../../data/protocols'
+import { AddDeveloperRepository, LoadDeveloperRepository, UpdateDeveloperRepository, LoadDeveloperByLevelIdRepository, DeleteDeveloperRepository } from '../../../data/protocols'
 import { DeveloperModel } from '../../../domain/models'
 import { AddDeveloper } from '../../../domain/usecases'
 
-export class DeveloperMongoRepository implements AddDeveloperRepository, LoadDeveloperRepository, UpdateDeveloperRepository, LoadDeveloperByLevelIdRepository {
+export class DeveloperMongoRepository
+implements AddDeveloperRepository,
+  LoadDeveloperRepository,
+  UpdateDeveloperRepository,
+  LoadDeveloperByLevelIdRepository,
+  DeleteDeveloperRepository {
   async add (data: AddDeveloper.Params): Promise<void> {
     const developerCollection = MongoHelper.getCollection('developers')
     await developerCollection.insertOne({ ...data, id: v4() })
   }
 
-  async load (name?: string | undefined): Promise<LoadDeveloperRepository.Result> {
+  async load (developerId?: string | undefined): Promise<LoadDeveloperRepository.Result> {
     const developerCollection = MongoHelper.getCollection('developers')
-    const developers = name
+    const developers = developerId
       ? await developerCollection.find(
-        { nome: name },
+        { id: developerId },
         {
           projection: { _id: 0, id: 1, nome: 1, datanascimento: 1, hobby: 1, idade: 1, sexo: 1, nivelid: 1 }
         }).toArray()
@@ -46,5 +51,10 @@ export class DeveloperMongoRepository implements AddDeveloperRepository, LoadDev
       { projection: { _id: 0, id: 1, nome: 1, datanascimento: 1, hobby: 1, idade: 1, sexo: 1, nivelid: 1 } }
     )
     if (developer) return developer
+  }
+
+  async delete (developerId: string): Promise<void> {
+    const developerCollection = MongoHelper.getCollection('developers')
+    await developerCollection.deleteOne({ id: developerId })
   }
 }

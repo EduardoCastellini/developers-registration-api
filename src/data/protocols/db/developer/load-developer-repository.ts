@@ -1,5 +1,5 @@
 export interface LoadDeveloperRepository {
-  load: (name?: string) => Promise<LoadDeveloperRepository.Result>
+  load: (developerId?: string) => Promise<LoadDeveloperRepository.Result>
 }
 
 export namespace LoadDeveloperRepository {

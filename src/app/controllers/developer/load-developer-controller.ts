@@ -10,7 +10,7 @@ export class LoadDeveloperController implements Controller {
 
   async handle (request: LoadDeveloperController.Request): Promise<HttpResponse> {
     try {
-      const developers = await this.loadDeveloper.load(request?.params?.name)
+      const developers = await this.loadDeveloper.load(request?.params?.developerId)
       return ok(developers)
     } catch (error) {
       return serverError(error)
@@ -20,6 +20,6 @@ export class LoadDeveloperController implements Controller {
 
 export namespace LoadDeveloperController {
   export interface Request {
-    params: {name?: string}
+    params: {developerId?: string}
   }
 }

@@ -1,7 +1,7 @@
 import { DeveloperModel } from '../../models'
 
 export interface LoadDeveloper {
-  load: (nome?: string) => Promise<LoadDeveloper.Result>
+  load: (developerId?: string) => Promise<LoadDeveloper.Result>
 }
 
 export namespace LoadDeveloper {
