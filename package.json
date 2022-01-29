@@ -1,0 +1,43 @@
+{
+  "name": "developers-registration",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.ts",
+  "scripts": {
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/main/server.ts",
+    "start": "node dist/main/server.js",
+    "build": "rimraf dist && tsc",
+    "test": "jest --passWithNoTests --runInBand",
+    "up": "npm run build && docker-compose up -d",
+    "down": "docker-compose down"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EduardoCastellini/developers-registration.git"
+  },
+  "author": "Eduardo Castellini",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EduardoCastellini/developers-registration/issues"
+  },
+  "homepage": "https://github.com/EduardoCastellini/developers-registration#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.12",
+    "@typescript-eslint/eslint-plugin": "^5.10.1",
+    "eslint": "^8.7.0",
+    "eslint-config-standard-with-typescript": "^21.0.1",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "@types/uuid": "^8.3.4",
+    "express": "^4.17.2",
+    "mongodb": "^4.3.1",
+    "rimraf": "^3.0.2",
+    "uuid": "^8.3.2"
+  }
+}
