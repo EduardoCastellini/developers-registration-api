@@ -26,7 +26,13 @@ implements AddDeveloperRepository,
       : await developerCollection.find(
         { },
         { projection: { _id: 0, id: 1, nome: 1, datanascimento: 1, hobby: 1, idade: 1, sexo: 1, nivelid: 1 } }).toArray()
-    if (developers) return developers
+
+    const levelsCollection = MongoHelper.getCollection('levels')
+    const levels = await levelsCollection.find({}, { projection: { _id: 0, id: 1, nivel: 1 } }).toArray()
+    return developers.map(developer => ({
+      ...developer,
+      nivel: levels.find(level => level.id === developer.nivelid)?.nivel || ''
+    }))
   }
 
   async loadByLevelId (levelId?: string | undefined): Promise<any> {

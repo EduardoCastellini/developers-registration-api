@@ -13,7 +13,18 @@ export class LevelMongoRepository implements AddLevelRepository, LoadLevelReposi
     const levels = levelId
       ? await levelCollection.find<LoadLevelRepository.Result>({ id: levelId }, { projection: { _id: 0, id: 1, nivel: 1 } }).toArray()
       : await levelCollection.find<LoadLevelRepository.Result>({}, { projection: { _id: 0, id: 1, nivel: 1 } }).toArray()
-    return levels
+
+    const developersCollection = MongoHelper.getCollection('developers')
+    const developers = await developersCollection.find({}, { projection: { _id: 0, id: 1, nivelid: 1 } }).toArray()
+    const levelsIds = developers.map(
+      (developer) => { return developer.nivelid }).reduce(
+      (levels, dev) => {
+        levels[dev] = levels[dev] || []
+        levels[dev] = ++levels[dev]
+        return levels
+      }, [])
+
+    return levels.map(level => ({ ...level, total: levelsIds[level.id] || 0 }))
   }
 
   async update (levelId: string, data: UpdateLevelRepository.Params): Promise<UpdateLevelRepository.Result> {
