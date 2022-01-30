@@ -77,7 +77,7 @@ URL de produção: https://developers-registration.herokuapp.com
 | `nome`      | `string` | Nome do desenvolvedor. (ex: João) |
 | `sexo`      | `string` | Sexo do desenvolvedor. (ex: M) |
 | `datanascimento`      | `string` | Data de Nascimento do desenvolvedor. (ex: 1994-04-14T22:16:07.084Z) |
-| `idade`      | `string` | Idade do desenvolvedor. (ex: 27) |
+| `idade`      | `Number` | Idade do desenvolvedor. (ex: 27) |
 | `hobby`      | `string` | Hobby do desenvolvedor. (ex: Programar) |
 | `nivelid`      | `string` | ID do nível que deseja vincular a esse desenvolvedor. |
 
@@ -91,7 +91,7 @@ URL de produção: https://developers-registration.herokuapp.com
 | `nome`      | `string` | Nome do desenvolvedor. (ex: João) |
 | `sexo`      | `string` | Sexo do desenvolvedor. (ex: M) |
 | `datanascimento`      | `string` | Data de Nascimento do desenvolvedor. (ex: 1994-04-14T22:16:07.084Z) |
-| `idade`      | `string` | Idade do desenvolvedor. (ex: 27) |
+| `idade`      | `Number` | Idade do desenvolvedor. (ex: 27) |
 | `hobby`      | `string` | Hobby do desenvolvedor. (ex: Programar) |
 | `nivelid`      | `string` | ID do nível que deseja vincular a esse desenvolvedor. |
 
@@ -119,4 +119,13 @@ $ npm run build
 
 # executa a aplicação
 $ npm run start
+```
+
+**Testes:** Para executar os testes: 
+```bash
+# instala as dependencias
+$ npm i
+
+# executa todos os testes
+$ npm teste
 ```
