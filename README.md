@@ -123,7 +123,7 @@ $ npm run start
 
 **Testes:** Para executar os testes: 
 ```bash
-# instala as dependencias
+# instala as dependências
 $ npm i
 
 # executa todos os testes
