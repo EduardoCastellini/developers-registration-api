@@ -1,6 +1,6 @@
-import {AddLevelController} from '../../src/app/controllers/level'
-import {AddLevel} from '../../src/domain/usecases/level'
-import {created} from '../../src/app/helpers'
+import {AddLevelController} from '../../../src/app/controllers/level'
+import {AddLevel} from '../../../src/domain/usecases/level'
+import {created} from '../../../src/app/helpers'
 
 const makeFakeRequest = () => ({
   body: {
