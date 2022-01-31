@@ -12,6 +12,8 @@ API desenvolvida para cadastrar desenvolvedores e associar o mesmo a um determin
 A fim de facilitar os testes, foi feito o deploy do projeto utilizando o serviço do Heroku.
 URL de produção: https://developers-registration.herokuapp.com
 
+exemplo: https://developers-registration.herokuapp.com/levels
+
 #### Listar níveis existentes:
 ```http
   GET /levels
