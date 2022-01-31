@@ -109,9 +109,13 @@ URL de produção: https://developers-registration.herokuapp.com
 2. Acesse o diretório raiz do projeto.
 4. Execute o seguinte comando:
 ```bash
+# instala as dependências
+$ npm i
 # realiza o build e já sobe os containers
 $ npm run up
 ```
+5. Aplicação ficará disponível na porta 3000, exemplo: http://localhost:3000/developers
+
 **OPCIONAL:** Caso queira executar diretamente com o Node: 
 ```bash
 # realiza o build
@@ -123,9 +127,6 @@ $ npm run start
 
 **Testes:** Para executar os testes: 
 ```bash
-# instala as dependências
-$ npm i
-
 # executa todos os testes
 $ npm teste
 ```
